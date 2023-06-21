@@ -18,15 +18,20 @@ void push(stack_t **stack, unsigned int line_number)
 	char *opcode = strtok(NULL, "\n \t");
 	int arg, i = 0;
 
-	while (opcode != NULL && opcode[i] != '\0')
+	if (opcode != NULL)
 	{
-		if (!isdigit(opcode[i++]) && opcode[0] != '-')
+		if (opcode[i] == '-')
+			i++;
+
+		while (opcode[i] != '\0')
 		{
-			i = -1;
-			break;
+			if (!isdigit(opcode[i++]))
+			{
+				i = -1;
+				break;
+			}
 		}
-	} 
-	
+	}	
 	if (opcode == NULL || i == -1)
 	{
 		fprintf(stdout, "L%u: usage: push integer\n", line_number);

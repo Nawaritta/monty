@@ -39,7 +39,8 @@ int get_opcode(char **argv, stack_t **stack)
 		}
 		line_number++;
 	}
-
+	free(opcode);
+	free_stack(*stack);
 	fclose(code_file);
 	return (EXIT_SUCCESS);	
 }
@@ -119,4 +120,23 @@ void mode2(stack_t **stack, unsigned int line_number)
 	mode = 2;
 
 	
+}
+
+
+/**
+ * free_dlistint - frees a doubly linked list
+ *@stack: pointer to the top node of the stack
+ *
+ */
+void free_stack(stack_t *stack)
+{
+	if (stack != NULL)
+	{
+		while (stack->next != NULL)
+		{
+			stack = stack->next;
+			free(stack->prev);
+		}
+		free(stack);
+	}
 }
