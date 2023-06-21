@@ -18,7 +18,8 @@ void push(stack_t **stack, unsigned int line_number)
 	char *opcode = strtok(NULL, "\n \t");
 	int arg, i = 0;
 
-        while (opcode[i] != '\0')
+
+	while (opcode[i] != '\0')
 	{
 		if (!isdigit(opcode[i++]))
 		{
@@ -27,7 +28,11 @@ void push(stack_t **stack, unsigned int line_number)
 		}
 	}
 
+
+
 	arg = atoi(opcode);
+
+
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 		exit(EXIT_FAILURE);
@@ -35,14 +40,17 @@ void push(stack_t **stack, unsigned int line_number)
 	new_node->n = arg;
 	new_node->prev = NULL;
 
+
 	if (*stack == NULL)
 	{
 		new_node->next = NULL;
 		*stack = new_node;
 		return;
 	}
-	if(mode = 2)
+
+	if(mode == 2)
 	{
+		printf("Queue mode\n");
 		tmp = *stack;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
@@ -90,7 +98,7 @@ void pint(stack_t **stack, unsigned int line_number)
 	if (*stack == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-		
+
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*stack)->n);

@@ -21,8 +21,6 @@ int get_opcode(char **argv, stack_t **stack)
 	FILE *code_file = fopen(argv[1], "r");
 
 
-	printf("opend");
-
 	if (code_file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
@@ -31,7 +29,7 @@ int get_opcode(char **argv, stack_t **stack)
 
 	while (getline(&opcode, &n, code_file) != -1)
 	{
-		printf("here");
+		
 		opcode = strtok(opcode, " \t\n");
 
 		if (opcode != NULL)

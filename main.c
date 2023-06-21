@@ -6,7 +6,7 @@ int mode = 1;
  */
 int main(int argc, char **argv)
 {
-	stack_t **stack = NULL;
+	stack_t *stack = NULL;
 
 	if (argc != 2)
 	{
@@ -14,6 +14,6 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 
-	get_opcode(argv, stack);
+	get_opcode(argv, &stack);
 	return (EXIT_SUCCESS);
 }
