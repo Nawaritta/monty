@@ -31,7 +31,7 @@ void push(stack_t **stack, unsigned int line_number)
 				break;
 			}
 		}
-	}	
+	}
 	if (opcode == NULL || i == -1)
 	{
 		fprintf(stdout, "L%u: usage: push integer\n", line_number);
@@ -55,7 +55,7 @@ void push(stack_t **stack, unsigned int line_number)
 		return;
 	}
 
-	if(mode == 2)
+	if (mode == 2)
 	{
 		tmp = *stack;
 		while (tmp->next != NULL)
@@ -73,11 +73,13 @@ void push(stack_t **stack, unsigned int line_number)
 /**
  * pall - prints a stack
  *@stack: double pointer to the stack of the list
- *
+ * @line_number:  the execution line number
 */
 void pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current;
+
+	(void) line_number;
 
 	if (stack == NULL || *stack == NULL)
 		return;
@@ -133,7 +135,7 @@ void pop(stack_t **stack, unsigned int line_number)
 	{
 		*stack = (*stack)->next;
 		(*stack)->prev = NULL;
-		
+
 	}
 	free(tmp);
 }

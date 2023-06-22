@@ -44,7 +44,7 @@ extern int mode;
   /*-----------------/ execute_opcode.c /--------------*/
 
 int get_opcode(char **argv, stack_t **stack);
-void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number); 
+void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
 void mode1(stack_t **stack, unsigned int line_number);
 void mode2(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t **stack);
@@ -54,14 +54,14 @@ void free_stack(stack_t **stack);
 void push(stack_t **stack, unsigned int line_number);
 void pall(stack_t **stack, unsigned int line_number);
 void pint(stack_t **stack, unsigned int line_number);
-void pop(stack_t **stack, unsigned int line_number); 
+void pop(stack_t **stack, unsigned int line_number);
 
 
  /*---------------/  manipulations_functions.c /------------*/
 
 void rotl(stack_t **stack, unsigned int line_number);
-void rotr(stack_t **stack, unsigned int line_number); 
-void swap(stack_t **stack, unsigned int line_number);  
+void rotr(stack_t **stack, unsigned int line_number);
+void swap(stack_t **stack, unsigned int line_number);
 
 
 
@@ -77,7 +77,7 @@ void mod(stack_t **stack, unsigned int line_number);
  /*----------------/ more_stack_manip /--------------*/
 
 void pchar(stack_t **stack, unsigned int line_number);
-void pstr(stack_t **stack, unsigned int line_number);   
+void pstr(stack_t **stack, unsigned int line_number);
 
 
 /*----------------/ helpers   --------------*/

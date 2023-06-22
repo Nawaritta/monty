@@ -10,6 +10,7 @@ void mode2(stack_t **stack, unsigned int line_number);
  * get_opcode - reads the code lines and parse it into instructions
  * @argv: array of the arguments passed into main
  * @stack: double pointer to the top of the stack
+ * Return: 0  or 1
  */
 
 int get_opcode(char **argv, stack_t **stack)
@@ -24,7 +25,7 @@ int get_opcode(char **argv, stack_t **stack)
 	if (code_file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-	      	return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 
 	while (getline(&opcode, &n, code_file) != -1)
@@ -42,7 +43,7 @@ int get_opcode(char **argv, stack_t **stack)
 	free(opcode);
 	free_stack(stack);
 	fclose(code_file);
-	return (EXIT_SUCCESS);	
+	return (EXIT_SUCCESS);
 }
 
 
@@ -68,6 +69,7 @@ void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 		{"sub", sub},
 		{"div", Div},
 		{"mul", mul},
+		{"mod", mod},
 		{"pchar", pchar},
 		{"pstr", pstr},
 		{"queue", mode1},
@@ -77,7 +79,7 @@ void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 
 
 	int i, instructions_number = sizeof(instructions) / sizeof(instruction_t);
-		
+
 
 	for (i = 0; i < instructions_number; i++)
 	{
@@ -88,7 +90,7 @@ void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 			return;
 		}
 	}
-	
+
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
 }
 
@@ -105,12 +107,12 @@ void mode1(stack_t **stack, unsigned int line_number)
 	(void) stack;
 
 	mode = 1;
-	
+
 }
 
 
 /**
- * mode1 - swichs to mode 2 (queue mode)
+ * mode2 - swichs to mode 2 (queue mode)
  * @stack: double pointer to the top of the stack
  * @line_number: instruction line number
  */
@@ -121,6 +123,4 @@ void mode2(stack_t **stack, unsigned int line_number)
 
 	mode = 2;
 
-	
 }
-

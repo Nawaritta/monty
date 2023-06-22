@@ -46,7 +46,7 @@ void sub(stack_t **stack, unsigned int line_number)
 
 
 /**
- * div - divides the 2nd top element of the stack by the topest
+ * Div - divides the 2nd top element of the stack by the topest
  *@stack: double pointer to the top of the stack
  *@line_number: the execution line number
 */
