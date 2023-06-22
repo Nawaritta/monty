@@ -18,7 +18,10 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	if (get_opcode(argv, &stack) == EXIT_FAILURE)
+	{
+		free_stack(&stack);
 		return (EXIT_FAILURE);
-
+	}
+	free_stack(&stack);
 	return (EXIT_SUCCESS);
 }

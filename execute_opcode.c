@@ -34,11 +34,9 @@ int get_opcode(char **argv, stack_t **stack)
 		{
 			if (*info.opcode != '#')
 				execute_opcode(info.opcode, stack, line_number);
-			
 		}
 		line_number++;
 	}
-	free_stack(stack);
 	return (EXIT_SUCCESS);
 }
 
