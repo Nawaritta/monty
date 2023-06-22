@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -39,13 +40,14 @@ typedef struct instruction_s
 
 extern int mode;
 
+
   /*-----------------/ execute_opcode.c /--------------*/
 
 int get_opcode(char **argv, stack_t **stack);
 void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number); 
 void mode1(stack_t **stack, unsigned int line_number);
 void mode2(stack_t **stack, unsigned int line_number);
-void free_stack(stack_t *stack);
+void free_stack(stack_t **stack);
 
  /*----------------/  basic_fun.c /-----------------*/
 
@@ -55,8 +57,7 @@ void pint(stack_t **stack, unsigned int line_number);
 void pop(stack_t **stack, unsigned int line_number); 
 
 
-
- /*---------------/  manip_fun.c /---------------*/
+ /*---------------/  manipulations_functions.c /------------*/
 
 void rotl(stack_t **stack, unsigned int line_number);
 void rotr(stack_t **stack, unsigned int line_number); 
@@ -69,6 +70,18 @@ void swap(stack_t **stack, unsigned int line_number);
 void add(stack_t **stack, unsigned int line_number);
 void sub(stack_t **stack, unsigned int line_number);
 void Div(stack_t **stack, unsigned int line_number);
-void mul(stack_t **stack, unsigned int line_number);     
+void mul(stack_t **stack, unsigned int line_number);
+void mod(stack_t **stack, unsigned int line_number);
+
+
+ /*----------------/ more_stack_manip /--------------*/
+
+void pchar(stack_t **stack, unsigned int line_number);
+void pstr(stack_t **stack, unsigned int line_number);   
+
+
+/*----------------/ helpers   --------------*/
+
+void printeger(int number);
 
 #endif

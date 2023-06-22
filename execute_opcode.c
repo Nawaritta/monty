@@ -29,7 +29,7 @@ int get_opcode(char **argv, stack_t **stack)
 
 	while (getline(&opcode, &n, code_file) != -1)
 	{
-		
+
 		opcode = strtok(opcode, " \t\n");
 
 		if (opcode != NULL)
@@ -40,7 +40,7 @@ int get_opcode(char **argv, stack_t **stack)
 		line_number++;
 	}
 	free(opcode);
-	free_stack(*stack);
+	free_stack(stack);
 	fclose(code_file);
 	return (EXIT_SUCCESS);	
 }
@@ -63,10 +63,13 @@ void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 		{"pop", pop},
 		{"rotl", rotl},
 		{"rotr", rotr},
+		{"swap", swap},
 		{"add", add},
 		{"sub", sub},
 		{"div", Div},
 		{"mul", mul},
+		{"pchar", pchar},
+		{"pstr", pstr},
 		{"queue", mode1},
 		{"stack", mode2},
 		{"nop", NULL}
@@ -102,7 +105,6 @@ void mode1(stack_t **stack, unsigned int line_number)
 	(void) stack;
 
 	mode = 1;
-
 	
 }
 
@@ -122,21 +124,3 @@ void mode2(stack_t **stack, unsigned int line_number)
 	
 }
 
-
-/**
- * free_dlistint - frees a doubly linked list
- *@stack: pointer to the top node of the stack
- *
- */
-void free_stack(stack_t *stack)
-{
-	if (stack != NULL)
-	{
-		while (stack->next != NULL)
-		{
-			stack = stack->next;
-			free(stack->prev);
-		}
-		free(stack);
-	}
-}

@@ -18,16 +18,28 @@ void push(stack_t **stack, unsigned int line_number)
 	char *opcode = strtok(NULL, "\n \t");
 	int arg, i = 0;
 
-        while (opcode[i] != '\0')
+	if (opcode != NULL)
 	{
-		if (!isdigit(opcode[i++]))
+		if (opcode[i] == '-')
+			i++;
+
+		while (opcode[i] != '\0')
 		{
-			fprintf(stdout, "L%u: usage: push integer\n", line_number);
-			exit(EXIT_FAILURE);
+			if (!isdigit(opcode[i++]))
+			{
+				i = -1;
+				break;
+			}
 		}
+	}	
+	if (opcode == NULL || i == -1)
+	{
+		fprintf(stdout, "L%u: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
 	}
 
 	arg = atoi(opcode);
+
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 		exit(EXIT_FAILURE);
@@ -35,13 +47,15 @@ void push(stack_t **stack, unsigned int line_number)
 	new_node->n = arg;
 	new_node->prev = NULL;
 
-	if (*stack == NULL)
+
+	if (*stack == NULL || stack == NULL)
 	{
 		new_node->next = NULL;
 		*stack = new_node;
 		return;
 	}
-	if(Queue)
+
+	if(mode == 2)
 	{
 		tmp = *stack;
 		while (tmp->next != NULL)
@@ -72,7 +86,8 @@ void pall(stack_t **stack, unsigned int line_number)
 
 	while (current != NULL)
 	{
-		printf("%d\n", current->n);
+		printeger(current->n);
+		write(STDOUT_FILENO, "\n", 1);
 		current = current->next;
 	}
 }
@@ -87,13 +102,14 @@ void pint(stack_t **stack, unsigned int line_number)
 {
 	(void) line_number;
 
-	if (*stack == NULL)
+	if (*stack == NULL || stack == NULL)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-		
+
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", (*stack)->n);
+	printeger((*stack)->n);
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 
@@ -106,10 +122,9 @@ void pop(stack_t **stack, unsigned int line_number)
 {
 	stack_t *tmp;
 
-	if (*stack == NULL)
+	if (*stack == NULL || stack == NULL)
 	{
 		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
-		
 		exit(EXIT_FAILURE);
 	}
 	tmp = *stack;
@@ -118,6 +133,7 @@ void pop(stack_t **stack, unsigned int line_number)
 	{
 		*stack = (*stack)->next;
 		(*stack)->prev = NULL;
+		
 	}
 	free(tmp);
 }
