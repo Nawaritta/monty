@@ -1,5 +1,5 @@
 #include "monty.h"
-int mode = 1;
+monty info;
 
 /**
  * main - entry point
@@ -17,7 +17,8 @@ int main(int argc, char **argv)
 		fprintf(stderr, "USAGE: monty file\n");
 		return (EXIT_FAILURE);
 	}
+	if (get_opcode(argv, &stack) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 
-	get_opcode(argv, &stack);
 	return (EXIT_SUCCESS);
 }

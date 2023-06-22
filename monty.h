@@ -8,6 +8,8 @@
 #include <unistd.h>
 
 
+/* ------------- Structures ---------------*/
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -40,13 +42,25 @@ typedef struct instruction_s
 } instruction_t;
 
 
-extern int mode;
+/**
+ * struct monty_byte_code - structure holding basic info about the code
+ * @code_file: file holding the bytcode
+ * @mode: code execution mode (stack or queue)
+ */
+typedef struct monty_byte_code
+{
+	FILE *code_file;
+	int mode;
+	char *opcode;
+} monty;
+
+extern monty info;
 
 
-  /*-----------------/ execute_opcode.c /--------------*/
+/*-----------------/ execute_opcode.c /--------------*/
 
 int get_opcode(char **argv, stack_t **stack);
-void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
+int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
 void mode1(stack_t **stack, unsigned int line_number);
 void mode2(stack_t **stack, unsigned int line_number);
 void free_stack(stack_t **stack);

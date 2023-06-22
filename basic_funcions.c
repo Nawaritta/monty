@@ -14,32 +14,32 @@ void pop(stack_t **stack, unsigned int line_number);
  */
 void push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new_node, *tmp;
+	stack_t *new_node = NULL, *tmp = NULL;
 	char *opcode = strtok(NULL, "\n \t");
 	int arg, i = 0;
 
 	if (opcode != NULL)
 	{
 		if (opcode[i] == '-')
-			i++;
-
-		while (opcode[i] != '\0')
 		{
-			if (!isdigit(opcode[i++]))
-			{
+			if (opcode[++i] == '\0')
 				i = -1;
-				break;
-			}
+		}
+		while (i != -1 && opcode[i] != '\0')
+		{
+			if (isdigit(opcode[i]))
+				i++;
+			else
+				i = -1;
 		}
 	}
 	if (opcode == NULL || i == -1)
 	{
+		free_stack(stack);
 		fprintf(stdout, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-
 	arg = atoi(opcode);
-
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 		exit(EXIT_FAILURE);
@@ -47,22 +47,22 @@ void push(stack_t **stack, unsigned int line_number)
 	new_node->n = arg;
 	new_node->prev = NULL;
 
-
 	if (*stack == NULL || stack == NULL)
 	{
 		new_node->next = NULL;
 		*stack = new_node;
 		return;
 	}
-
-	if (mode == 2)
+	if (info.mode == 2)
 	{
 		tmp = *stack;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = new_node;
 		new_node->prev = tmp;
-	} else
+		new_node->next = NULL;
+	}
+	else
 	{
 		new_node->next = *stack;
 		(*stack)->prev = new_node;
@@ -106,8 +106,8 @@ void pint(stack_t **stack, unsigned int line_number)
 
 	if (*stack == NULL || stack == NULL)
 	{
+		free_stack(stack);
 		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-
 		exit(EXIT_FAILURE);
 	}
 	printeger((*stack)->n);
@@ -122,10 +122,11 @@ void pint(stack_t **stack, unsigned int line_number)
  */
 void pop(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp;
+	stack_t *tmp = NULL;
 
 	if (*stack == NULL || stack == NULL)
 	{
+		free_stack(stack);
 		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
@@ -138,4 +139,5 @@ void pop(stack_t **stack, unsigned int line_number)
 
 	}
 	free(tmp);
+	tmp = NULL;
 }

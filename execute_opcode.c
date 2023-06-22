@@ -1,7 +1,7 @@
 #include "monty.h"
 
 int get_opcode(char **argv, stack_t **stack);
-void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
+int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
 void mode1(stack_t **stack, unsigned int line_number);
 void mode2(stack_t **stack, unsigned int line_number);
 
@@ -15,34 +15,33 @@ void mode2(stack_t **stack, unsigned int line_number);
 
 int get_opcode(char **argv, stack_t **stack)
 {
-	char *opcode = NULL;
 	size_t n = 0;
 	int line_number = 1;
 
-	FILE *code_file = fopen(argv[1], "r");
+	info.code_file = fopen(argv[1], "r");
+	info.opcode = NULL;
 
-
-	if (code_file == NULL)
+	if (info.code_file == NULL)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
 
-	while (getline(&opcode, &n, code_file) != -1)
+	while (getline(&info.opcode, &n, info.code_file) != -1)
 	{
+		info.opcode = strtok(info.opcode, " \t\n");
 
-		opcode = strtok(opcode, " \t\n");
-
-		if (opcode != NULL)
+		if (info.opcode != NULL)
 		{
-			if (*opcode != '#')
-				execute_opcode(opcode, stack, line_number);
+			if (*info.opcode != '#')
+			{
+				if (execute_opcode(info.opcode, stack, line_number) == -1)
+					return (EXIT_FAILURE);
+			}
 		}
 		line_number++;
 	}
-	free(opcode);
 	free_stack(stack);
-	fclose(code_file);
 	return (EXIT_SUCCESS);
 }
 
@@ -52,8 +51,9 @@ int get_opcode(char **argv, stack_t **stack)
  *@opcode: the code to be executed
  *@stack: pointer to the top node
  *@line_number: the instruction line number
+ *Return: 0 if the instruction is found and -1 otherwise
  */
-void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
+int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 {
 
 	instruction_t instructions[] = {
@@ -87,11 +87,12 @@ void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 		{
 			if (instructions[i].f != NULL)
 				instructions[i].f(stack, line_number);
-			return;
+			return (0);
 		}
 	}
 
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+	return (-1);
 }
 
 
@@ -106,7 +107,7 @@ void mode1(stack_t **stack, unsigned int line_number)
 	(void) line_number;
 	(void) stack;
 
-	mode = 1;
+	info.mode = 1;
 
 }
 
@@ -121,6 +122,6 @@ void mode2(stack_t **stack, unsigned int line_number)
 	(void) line_number;
 	(void) stack;
 
-	mode = 2;
+	info.mode = 2;
 
 }

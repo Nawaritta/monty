@@ -19,6 +19,13 @@ void printeger(int number)
  */
 void free_stack(stack_t **stack)
 {
+
+	if (info.code_file != NULL)
+		fclose(info.code_file);
+
+	if (info.opcode != NULL)
+		free(info.opcode);
+
 	if (stack && *stack != NULL)
 	{
 		while ((*stack)->next != NULL)
@@ -28,6 +35,7 @@ void free_stack(stack_t **stack)
 
 		}
 		free(*stack);
+		stack = NULL;
 	}
 }
 
