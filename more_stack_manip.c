@@ -1,4 +1,5 @@
 #include "monty.h"
+#include <ctype.h>
 
 void pchar(stack_t **stack, unsigned int line_number);
 void pstr(stack_t **stack, unsigned int line_number);
@@ -16,7 +17,7 @@ void pchar(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	if (isascii((*stack)->n))
+	if (is_ascii((*stack)->n))
 	{
 		printf("%c\n", (*stack)->n);
 		return;
@@ -40,7 +41,7 @@ void pstr(stack_t **stack, unsigned int line_number)
 
 	if (stack != NULL && *stack != NULL)
 	{
-		while (tmp != NULL && tmp->n != 0 && isascii(tmp->n))
+		while (tmp != NULL && tmp->n != 0 && is_ascii(tmp->n))
 		{
 			c = (char)tmp->n;
 			write(1, &c, 1);

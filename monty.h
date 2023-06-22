@@ -1,11 +1,12 @@
 #ifndef MONTY_H
 #define MONTY_H
-
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
+
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -22,6 +23,7 @@ typedef struct stack_s
 	struct stack_s *prev;
 	struct stack_s *next;
 } stack_t;
+
 
 /**
  * struct instruction_s - opcode and its function
@@ -83,5 +85,5 @@ void pstr(stack_t **stack, unsigned int line_number);
 /*----------------/ helpers   --------------*/
 
 void printeger(int number);
-
+int is_ascii(int c);
 #endif
