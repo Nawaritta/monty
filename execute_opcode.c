@@ -1,7 +1,7 @@
 #include "monty.h"
 
 int get_opcode(char **argv, stack_t **stack);
-int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
+void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
 void mode1(stack_t **stack, unsigned int line_number);
 void mode2(stack_t **stack, unsigned int line_number);
 
@@ -26,7 +26,6 @@ int get_opcode(char **argv, stack_t **stack)
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
-
 	while (getline(&info.opcode, &n, info.code_file) != -1)
 	{
 		info.opcode = strtok(info.opcode, " \t\n");
@@ -34,10 +33,8 @@ int get_opcode(char **argv, stack_t **stack)
 		if (info.opcode != NULL)
 		{
 			if (*info.opcode != '#')
-			{
-				if (execute_opcode(info.opcode, stack, line_number) == -1)
-					return (EXIT_FAILURE);
-			}
+				execute_opcode(info.opcode, stack, line_number);
+			
 		}
 		line_number++;
 	}
@@ -51,9 +48,8 @@ int get_opcode(char **argv, stack_t **stack)
  *@opcode: the code to be executed
  *@stack: pointer to the top node
  *@line_number: the instruction line number
- *Return: 0 if the instruction is found and -1 otherwise
  */
-int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
+void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 {
 
 	instruction_t instructions[] = {
@@ -87,12 +83,13 @@ int execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 		{
 			if (instructions[i].f != NULL)
 				instructions[i].f(stack, line_number);
-			return (0);
+			return;
 		}
 	}
 
 	fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
-	return (-1);
+	free_stack(stack);
+	exit(EXIT_FAILURE);
 }
 
 
