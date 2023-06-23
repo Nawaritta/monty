@@ -36,7 +36,7 @@ void push(stack_t **stack, unsigned int line_number)
 	if (opcode == NULL || i == -1)
 	{
 		free_stack(stack);
-		fprintf(stdout, "L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	arg = atoi(opcode);
