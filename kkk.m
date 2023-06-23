@@ -1,5 +1,20 @@
 push 1
 push 2
-pall
-rotr
+push 3
+pint
+nop
+push 4
+swap
+pop
+add
+push 1
+sub
+push 2
+div
+push 12
+mul
+push 9
+mod
+push 65
+pchar
 pall
