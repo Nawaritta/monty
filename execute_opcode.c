@@ -17,6 +17,7 @@ int get_opcode(char **argv, stack_t **stack)
 {
 	size_t n = 0;
 	int line_number = 1;
+	char *opcode = NULL;
 
 	info.code_file = fopen(argv[1], "r");
 	info.opcode = NULL;
@@ -28,12 +29,14 @@ int get_opcode(char **argv, stack_t **stack)
 	}
 	while (getline(&info.opcode, &n, info.code_file) != -1)
 	{
-		info.opcode = strtok(info.opcode, " \t\n");
+		opcode = strtok(info.opcode, " \t\n");
 
-		if (info.opcode != NULL)
+		if (opcode != NULL)
 		{
-			if (*info.opcode != '#')
-				execute_opcode(info.opcode, stack, line_number);
+			if (*opcode != '#')
+				execute_opcode(opcode, stack, line_number);
+			else
+				free(opcode);
 		}
 		line_number++;
 	}

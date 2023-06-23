@@ -15,7 +15,7 @@ void pop(stack_t **stack, unsigned int line_number);
 void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = NULL, *tmp = NULL;
-	char *opcode = strtok(NULL, "\n \t");
+	char *opcode = strtok(NULL, " \t\n");
 	int arg, i = 0;
 
 	if (opcode != NULL)
@@ -43,6 +43,7 @@ void push(stack_t **stack, unsigned int line_number)
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
+		free_stack(stack);
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
