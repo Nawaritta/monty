@@ -102,4 +102,5 @@ void pstr(stack_t **stack, unsigned int line_number);
 void printeger(int number);
 int is_ascii(int c);
 void free_stack(stack_t **stack);
+int is_integer(char *opcode);
 #endif

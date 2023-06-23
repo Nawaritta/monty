@@ -66,8 +66,8 @@ void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number)
 		{"mod", mod},
 		{"pchar", pchar},
 		{"pstr", pstr},
-		{"queue", mode1},
-		{"stack", mode2},
+		{"queue", mode2},
+		{"stack", mode1},
 		{"nop", NULL}
 	};
 
@@ -105,7 +105,6 @@ void mode1(stack_t **stack, unsigned int line_number)
 	info.mode = 1;
 
 }
-
 
 /**
  * mode2 - swichs to mode 2 (queue mode)
