@@ -40,13 +40,14 @@ void pchar(stack_t **stack, unsigned int line_number)
  */
 void pstr(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp = *stack;
+	stack_t *tmp;
 	char c;
 
 	(void) line_number;
 
 	if (stack != NULL && *stack != NULL)
 	{
+		tmp = *stack;
 		while (tmp != NULL && tmp->n != 0 && is_ascii(tmp->n))
 		{
 			c = (char)tmp->n;
