@@ -46,6 +46,7 @@ typedef struct instruction_s
  * struct monty_byte_code - structure holding basic info about the code
  * @code_file: file holding the bytcode
  * @mode: code execution mode (stack or queue)
+ * @opcode: opcode extracted from the code file
  */
 typedef struct monty_byte_code
 {
