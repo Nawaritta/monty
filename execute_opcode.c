@@ -31,7 +31,7 @@ int get_opcode(char **argv, stack_t **stack)
 	{
 		opcode = strtok(info.opcode, " \t\n");
 
-		if (opcode == NULL || info.opcode[0] == '#')
+		if (opcode == NULL || opcode[0] == '#')
 			continue;
 
 		execute_opcode(opcode, stack, line_number);
