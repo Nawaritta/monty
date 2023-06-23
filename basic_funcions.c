@@ -84,9 +84,6 @@ void pall(stack_t **stack, unsigned int line_number)
 
 	(void) line_number;
 
-	if (stack == NULL || *stack == NULL)
-		return;
-
 	current = *stack;
 
 	while (current != NULL)
@@ -117,7 +114,6 @@ void pint(stack_t **stack, unsigned int line_number)
 	write(STDOUT_FILENO, "\n", 1);
 }
 
-
 /**
  * pop - deletes the last added node (the head)
  * @stack: double pointer to the head
@@ -125,7 +121,6 @@ void pint(stack_t **stack, unsigned int line_number)
  */
 void pop(stack_t **stack, unsigned int line_number)
 {
-	stack_t *tmp = NULL;
 
 	if (*stack == NULL || stack == NULL)
 	{
@@ -133,14 +128,14 @@ void pop(stack_t **stack, unsigned int line_number)
 		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	tmp = *stack;
 
-	if ((*stack)->next != NULL)
+	if ((*stack)->next == NULL)
 	{
-		*stack = (*stack)->next;
-		(*stack)->prev = NULL;
-
+		free(*stack);
+		*stack = NULL;
+		return;
 	}
-	free(tmp);
-	tmp = NULL;
+	*stack = (*stack)->next;
+	free((*stack)->prev);
+	(*stack)->prev = NULL;
 }
