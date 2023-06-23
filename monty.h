@@ -64,7 +64,7 @@ int get_opcode(char **argv, stack_t **stack);
 void execute_opcode(char *opcode, stack_t **stack, unsigned int line_number);
 void mode1(stack_t **stack, unsigned int line_number);
 void mode2(stack_t **stack, unsigned int line_number);
-void free_stack(stack_t **stack);
+
 
  /*----------------/  basic_fun.c /-----------------*/
 
@@ -101,4 +101,5 @@ void pstr(stack_t **stack, unsigned int line_number);
 
 void printeger(int number);
 int is_ascii(int c);
+void free_stack(stack_t **stack);
 #endif
