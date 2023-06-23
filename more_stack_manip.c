@@ -12,6 +12,8 @@ void pstr(stack_t **stack, unsigned int line_number);
  */
 void pchar(stack_t **stack, unsigned int line_number)
 {
+	char c;
+
 	if (*stack == NULL || stack == NULL)
 	{
 		free_stack(stack);
@@ -20,7 +22,9 @@ void pchar(stack_t **stack, unsigned int line_number)
 	}
 	if (is_ascii((*stack)->n))
 	{
-		printf("%c\n", (*stack)->n);
+		c = (char)(*stack)->n;
+		write(1, &c, 1);
+		write(1, "\n", 1);
 		return;
 	}
 	free_stack(stack);
