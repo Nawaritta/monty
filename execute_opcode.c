@@ -27,6 +27,26 @@ int get_opcode(char **argv, stack_t **stack)
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		return (EXIT_FAILURE);
 	}
+
+	while (getline(&info.opcode, &n, info.code_file) != -1)
+	{
+		opcode = strtok(info.opcode, " \t\n");
+
+		if (opcode != NULL)
+		{
+			if (*opcode == '#')
+			{
+				free(opcode);
+				continue;
+			} else
+				execute_opcode(opcode, stack, line_number);
+
+			line_number++;
+		}
+	}
+	return (EXIT_SUCCESS);
+
+
 	while (getline(&info.opcode, &n, info.code_file) != -1)
 	{
 		opcode = strtok(info.opcode, " \t\n");
