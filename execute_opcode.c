@@ -12,7 +12,6 @@ void mode2(stack_t **stack, unsigned int line_number);
  * @stack: double pointer to the top of the stack
  * Return: 0  or 1
  */
-
 int get_opcode(char **argv, stack_t **stack)
 {
 	size_t n = 0;
@@ -32,11 +31,7 @@ int get_opcode(char **argv, stack_t **stack)
 		opcode = strtok(info.opcode, " \t\n");
 
 		if (opcode == NULL || info.opcode[0] == '#')
-		{
-			if (info.opcode[0] == '#')
-				free(info.opcode);
 			continue;
-		}
 
 		execute_opcode(opcode, stack, line_number);
 		line_number++;
