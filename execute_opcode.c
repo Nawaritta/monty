@@ -45,19 +45,6 @@ int get_opcode(char **argv, stack_t **stack)
 		}
 	}
 	return (EXIT_SUCCESS);
-
-
-	while (getline(&info.opcode, &n, info.code_file) != -1)
-	{
-		opcode = strtok(info.opcode, " \t\n");
-
-		if (opcode == NULL || opcode[0] == '#')
-			continue;
-
-		execute_opcode(opcode, stack, line_number);
-		line_number++;
-	}
-	return (EXIT_SUCCESS);
 }
 
 
