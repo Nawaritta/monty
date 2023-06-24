@@ -32,11 +32,7 @@ int get_opcode(char **argv, stack_t **stack)
 		opcode = strtok(info.opcode, " \t\n");
 
 		if (opcode == NULL || opcode[0] == '#')
-		{
-			if (opcode[0] == '#')
-				free(opcode);
 			continue;
-		}
 
 		execute_opcode(opcode, stack, line_number);
 		line_number++;
