@@ -31,9 +31,9 @@ int get_opcode(char **argv, stack_t **stack)
 	{
 		opcode = strtok(info.opcode, " \t\n");
 
-		if (opcode == NULL || opcode[0] == '#')
+		if (opcode == NULL || info.opcode[0] == '#')
 		{
-			if (opcode[0] == '#')
+			if (info.opcode[0] == '#')
 				free(info.opcode);
 			continue;
 		}
