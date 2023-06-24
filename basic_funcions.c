@@ -16,30 +16,16 @@ void push(stack_t **stack, unsigned int line_number)
 {
 	stack_t *new_node = NULL, *tmp = NULL;
 	char *opcode = strtok(NULL, " \t\n");
-	int arg, i = 0;
+	int arg;
 
-	if (opcode != NULL)
-	{
-		if (opcode[i] == '-')
-		{
-			if (opcode[++i] == '\0')
-				i = -1;
-		}
-		while (i != -1 && opcode[i] != '\0')
-		{
-			if (isdigit(opcode[i]))
-				i++;
-			else
-				i = -1;
-		}
-	}
-	if (opcode == NULL || i == -1)
+	if (!is_integer(opcode))
 	{
 		free_stack(stack);
 		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	arg = atoi(opcode);
+
 	new_node = malloc(sizeof(stack_t));
 	if (new_node == NULL)
 	{
